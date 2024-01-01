@@ -23,7 +23,7 @@ export default function coupons() {
 
   useEffect(() => {
     getCoupons();
-  }, [coupons])
+  }, [])
 
   async function getCoupons() {
     const { data } = await axios.get<CouponResponse>("https://bgmlist.com/coupon-api/coupons");
@@ -31,10 +31,11 @@ export default function coupons() {
   };
 
   const handleDelete = async (couponId: string) => {
-      try {
-        await axios.delete(`https://bgmlist.com/coupon-api/coupons/${couponId}`);
+    try {
+      await axios.delete(`https://bgmlist.com/coupon-api/coupons/${couponId}`)
+      getCoupons();
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
 
