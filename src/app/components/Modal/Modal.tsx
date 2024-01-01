@@ -1,6 +1,4 @@
-import { createPortal } from 'react-dom';
-
-import CloseIcon from '../icons/CloseIcon.svg'
+import CloseIcon from '../../icons/CloseIcon.svg'
 import style from './Modal.module.css';
 
 type ModalProps = {
@@ -11,15 +9,8 @@ type ModalProps = {
 }
 
 export default function Modal({ show, close, title, children }: ModalProps) {
-  const modalContainer = document.getElementById("modal");
-  if (!modalContainer) {
-    console.error('Modal container not found');
-    return null;
-  }
-
-  return createPortal(
-    <>
-        <div className={`style.modalContainer ${show ? "show" : ""}`} onClick={() => close()}>
+  return <>
+        <div className={`${style.modalContainer} ${show ? style.show : ""}`} onClick={() => close()}>
           <div className={style.modal} onClick={(e) => e.stopPropagation()}>
             <header className={style.modalHeader}>
               <h2 className={style.modalTitle}>
@@ -42,7 +33,5 @@ export default function Modal({ show, close, title, children }: ModalProps) {
             </footer>
           </div>
         </div>
-    </>,
-    modalContainer as Element
-  );
+    </>;
 };

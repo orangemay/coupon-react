@@ -1,5 +1,3 @@
-import { ChangeEventHandler } from "react";
-
 type Props = {
   className?: string;
   type: string;

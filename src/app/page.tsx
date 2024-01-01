@@ -3,17 +3,21 @@
 import React, { useState } from 'react';
 import style from './page.module.css';
 
-import Input from './components/Input';
-import Modal from './components/Modal';
-
-import styles from './page.module.css'
+import Coupon from './page/Coupon';
+import Create from './page/Create/Create'
+import Input from './components/Input/Input';
+import Modal from './components/Modal/Modal';
 
 export default function Home() {
   const [modal, setModal] = useState(false)
-  const Toggle = () => setModal(!modal)
+  const Toggle = () => setModal(prev => !prev)
 
   return (
     <div className={style.main}>
+      <div className="header">
+        <Create />
+      </div>
+      <Coupon />
       <Input
         type="string"
         onChange={()=>console.log('success')}
