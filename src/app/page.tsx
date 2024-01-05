@@ -1,22 +1,43 @@
 "use client";
 
 import React, { useState } from 'react';
+import axios from 'axios';
 import style from './page.module.css';
 
 import Coupon from './page/Coupon';
 import Input from './components/Input/Input';
 import Modal from './components/Modal/Modal';
 
+type Coupon = {
+  id: string;
+  name: string;
+  brand?: string;
+  count: string;
+  expireAt?: string
+}
+
 export default function Home() {
   const [modal, setModal] = useState(false)
   const Toggle = () => setModal(prev => !prev)
 
-  const [brand, setBrand] = useState("")
-  const [name, setName] = useState("")
-  const [count, setCount] = useState("")
-  const [expired, setExpired] = useState("")
+  const [coupons, setCoupons] = useState({
+    brand: '',
+    name: '',
+    count: '',
+    expiredAt: '',
+  })
+  const handleInputChange = (name: string, value: string | number) => {
+    setCoupons({
+      ...coupons,
+      [name]: value,
+    });
+  }
 
-
+  async function createCoupon(coupon: Coupon) {
+    console.log(coupons)
+    const data = await axios.post("https://bgmlist.com/coupon-api/coupons", coupons)
+    return data
+  }
 
   return (
     <div className={style.main}>
@@ -29,22 +50,23 @@ export default function Home() {
           title="modal"
           show={modal}
           close={Toggle}
+          onClick={createCoupon}
         >
           <label>
             Brand:
-            <Input type="string" placeholder='brand' value={brand} onChange={(e) => setBrand(e.target.value)}/>
+            <Input type="string" placeholder='brand' value={coupons.brand} onChange={e => handleInputChange('brand', e.target.value)} />
           </label>
           <label>
             Name:
-            <Input type="string" placeholder='name' value={name} onChange={(e) => setName(e.target.value)}/>
+            <Input type="string" placeholder='name' value={coupons.name} onChange={e => handleInputChange('name', e.target.value)} />
           </label>
           <label>
             Count:
-            <Input type="string" placeholder='0' value={count} onChange={(e) => setCount(e.target.value)}/>
+            <Input type="string" placeholder='0' value={coupons.count} onChange={e => handleInputChange('count', parseInt(e.target.value))} />
           </label>
           <label>
             Expired:
-            <Input type="string" placeholder='11' value={expired} onChange={(e) => setExpired(e.target.value)}/>
+            <Input type="string" placeholder='11' value={coupons.expiredAt} onChange={e => handleInputChange('expiredAt', e.target.value)} />
           </label>
         </Modal>
       </div>

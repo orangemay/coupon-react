@@ -5,10 +5,12 @@ type ModalProps = {
   show: boolean;
   close: () => void;
   title: string;
-  children: any
+  children: any;
+  onClick: any;
 }
 
-export default function Modal({ show, close, title, children }: ModalProps) {
+export default function Modal({ show, close, title, children, onClick }: ModalProps) {
+
   return <>
         <div className={`${style.modalContainer} ${show ? style.show : ""}`} onClick={() => close()}>
           <div className={style.modal} onClick={(e) => e.stopPropagation()}>
@@ -27,7 +29,7 @@ export default function Modal({ show, close, title, children }: ModalProps) {
               <button className="modal-close" onClick={() => close()}>
                 Cancel
               </button>
-              <button className="submit">
+              <button className="submit" onClick={onClick}>
                 Submit
               </button>
             </footer>

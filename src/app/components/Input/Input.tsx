@@ -3,7 +3,7 @@ type Props = {
   type: string;
   placeholder?: string;
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>)=>void
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function Input(props: Props): JSX.Element {
