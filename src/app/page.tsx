@@ -20,23 +20,25 @@ export default function Home() {
   const [modal, setModal] = useState(false)
   const Toggle = () => setModal(prev => !prev)
 
-  const [coupons, setCoupons] = useState({
+  const [coupon, setCoupon] = useState({
     brand: '',
     name: '',
     count: '',
     expireAt: '',
   })
   const handleInputChange = (name: string, value: string | number) => {
-    setCoupons({
-      ...coupons,
+    setCoupon({
+      ...coupon,
       [name]: value,
     });
   }
 
-  async function createCoupon(coupon: Coupon) {
-    console.log(coupons)
-    const data = await axios.post("https://bgmlist.com/coupon-api/coupons", coupons)
-    return data
+  async function createCoupon() {
+    const requestData = {...coupon};
+    if (requestData.expireAt) {
+      requestData.expireAt = (new Date(requestData.expireAt)).toISOString();
+    }
+    await axios.post("https://bgmlist.com/coupon-api/coupons", requestData);
   }
 
   return (
@@ -54,22 +56,19 @@ export default function Home() {
         >
           <label>
             Brand:
-            <Input type="string" placeholder='brand' value={coupons.brand} onChange={e => handleInputChange('brand', e.target.value)} />
+            <Input type="string" placeholder='brand' value={coupon.brand} onChange={e => handleInputChange('brand', e.target.value)} />
           </label>
           <label>
             Name:
-            <Input type="string" placeholder='name' value={coupons.name} onChange={e => handleInputChange('name', e.target.value)} />
+            <Input type="string" placeholder='name' value={coupon.name} onChange={e => handleInputChange('name', e.target.value)} />
           </label>
           <label>
             Count:
-            <Input type="string" placeholder='0' value={coupons.count} onChange={e => handleInputChange('count', parseInt(e.target.value))} />
+            <Input type="string" placeholder='0' value={coupon.count} onChange={e => handleInputChange('count', parseInt(e.target.value))} />
           </label>
           <label>
             Expired:
-            <Input
-              type="date"
-              value={coupons.expireAt}
-              onChange={e => handleInputChange('expireAt', (new Date(e.target.value).toISOString()))}
+            <Input type="date" value={coupon.expireAt} onChange={e => handleInputChange('expireAt', e.target.value)}
             />
           </label>
         </Modal>
