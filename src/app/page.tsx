@@ -66,7 +66,11 @@ export default function Home() {
           </label>
           <label>
             Expired:
-            <Input type="string" placeholder='11' value={coupons.expiredAt} onChange={e => handleInputChange('expiredAt', e.target.value)} />
+            <Input
+              type="date"
+              value={coupons.expiredAt}
+              onChange={e => handleInputChange('expiredAt', e.target.value)}
+            />
           </label>
         </Modal>
       </div>
