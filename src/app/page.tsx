@@ -24,7 +24,7 @@ export default function Home() {
     brand: '',
     name: '',
     count: '',
-    expiredAt: '',
+    expireAt: '',
   })
   const handleInputChange = (name: string, value: string | number) => {
     setCoupons({
@@ -68,8 +68,8 @@ export default function Home() {
             Expired:
             <Input
               type="date"
-              value={coupons.expiredAt}
-              onChange={e => handleInputChange('expiredAt', e.target.value)}
+              value={coupons.expireAt}
+              onChange={e => handleInputChange('expireAt', (new Date(e.target.value).toISOString()))}
             />
           </label>
         </Modal>
