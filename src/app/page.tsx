@@ -28,7 +28,17 @@ export default function Home() {
   }, [setCoupons])
 
   const [modal, setModal] = useState(false)
-  const Toggle = () => setModal(prev => !prev)
+  const Toggle = () => {
+    if (!modal) {
+      setCoupon({
+        brand: '',
+        name: '',
+        count: '',
+        expireAt: '',
+      });
+    }
+    setModal(prev => !prev);
+  }
 
   const [coupon, setCoupon] = useState({
     brand: '',
@@ -56,12 +66,6 @@ export default function Home() {
       console.log(e);
     } finally {
       Toggle();
-      setCoupon({
-        brand: '',
-        name: '',
-        count: '',
-        expireAt: '',
-      });
     }
   }
 
