@@ -9,31 +9,21 @@ type Coupon = {
   id: string;
   name: string;
   brand?: string;
-  count: number;
+  count: string;
   expireAt?: string
 }
 
-type CouponResponse = {
-  data: Coupon[]
+type CouponProps = {
+  coupons: Coupon[];
+  updateCoupons: () => void;
 }
 
-export default function coupons() {
-
-  const [coupons, setCoupons] = useState<Coupon[]>([])
-
-  useEffect(() => {
-    getCoupons();
-  }, [])
-
-  async function getCoupons() {
-    const { data } = await axios.get<CouponResponse>("https://bgmlist.com/coupon-api/coupons");
-    setCoupons(data.data)
-  };
+export default function Coupon({ coupons, updateCoupons }: CouponProps) {
 
   const handleDelete = async (couponId: string) => {
     try {
       await axios.delete(`https://bgmlist.com/coupon-api/coupons/${couponId}`)
-      getCoupons();
+      updateCoupons();
     } catch (error) {
       console.log(error);
     }

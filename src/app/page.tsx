@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import style from './page.module.css';
 
@@ -16,7 +16,17 @@ type Coupon = {
   expireAt?: string
 }
 
+type CouponResponse = {
+  data: Coupon[]
+}
+
 export default function Home() {
+
+  const [coupons, setCoupons] = useState<Coupon[]>([])
+  useEffect(() => {
+    getCoupons();
+  }, [setCoupons])
+
   const [modal, setModal] = useState(false)
   const Toggle = () => setModal(prev => !prev)
 
@@ -34,12 +44,31 @@ export default function Home() {
   }
 
   async function createCoupon() {
-    const requestData = {...coupon};
-    if (requestData.expireAt) {
-      requestData.expireAt = (new Date(requestData.expireAt)).toISOString();
+    try {
+      const requestData = {...coupon};
+      if (requestData.expireAt) {
+        requestData.expireAt = (new Date(requestData.expireAt)).toISOString();
+      }
+      await axios.post("https://bgmlist.com/coupon-api/coupons", requestData);
+      getCoupons();
+      console.log(coupon)
+    } catch(e) {
+      console.log(e);
+    } finally {
+      Toggle();
+      setCoupon({
+        brand: '',
+        name: '',
+        count: '',
+        expireAt: '',
+      });
     }
-    await axios.post("https://bgmlist.com/coupon-api/coupons", requestData);
   }
+
+  async function getCoupons() {
+    const { data } = await axios.get<CouponResponse>("https://bgmlist.com/coupon-api/coupons");
+    setCoupons(data.data)
+  };
 
   return (
     <div className={style.main}>
@@ -74,7 +103,7 @@ export default function Home() {
         </Modal>
       </div>
       <div className='body'>
-        <Coupon />
+        <Coupon coupons={coupons} updateCoupons={getCoupons}/>
       </div>
     </div>
   )
