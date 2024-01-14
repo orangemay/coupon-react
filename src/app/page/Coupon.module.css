@@ -1,0 +1,36 @@
+.table {
+  table-layout: fixed;
+  width: 100%;
+  padding: 2em;
+}
+
+.caption {
+  caption-side: top;
+  font-weight: 800;
+  font-size: xx-large;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.thead th {
+  padding: 10px;
+  border: 1px;
+}
+
+.tbody td {
+  border: 1px;
+  text-align: center;
+}
+
+.tbody td button {
+  /* margin: 0 auto; */
+  display: inline-block;
+}
+
+/* .tbody td:has(button) {
+  display: flex;
+  justify-content: center;
+} */
+
+
+

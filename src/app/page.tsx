@@ -84,8 +84,8 @@ export default function Home() {
   return (
     <div className={style.main}>
       <div className={style.header}>
-        <h1 className={style.h1}>All Coupons</h1>
-        <button className={style.button} onClick={Toggle}>
+        <h1>All Coupons</h1>
+        <button onClick={Toggle}>
           Create
         </button>
       </div>
@@ -115,7 +115,7 @@ export default function Home() {
           </label>
         </Modal>
       </div>
-      <div className='body'>
+      <div className={style.body}>
         <Coupon coupons={coupons} updateCoupons={getCoupons}/>
       </div>
     </div>

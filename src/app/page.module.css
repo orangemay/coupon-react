@@ -8,21 +8,24 @@
 
 .header {
   height: 35px;
-  position: relative;
   width: 100%;
   margin-bottom: 1rem;
 }
 
 .header h1 {
-  padding: 0 7em;
-  text-align: center;
+  padding: 0 1em;
+  text-align: left;
   line-height: 35px;
 }
 
 .header button {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2rem;
+  right: 2rem;
   padding: 0;
   margin: 0;
 }
+
+/* .body {
+  
+} */

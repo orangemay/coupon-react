@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import style from '../page.module.css'
+import style from './Coupon.module.css'
 
 type Coupon = {
   id: string;
@@ -31,9 +30,9 @@ export default function Coupon({ coupons, updateCoupons }: CouponProps) {
 
   return (
     <>
-      <table>
-        <caption>Coupons</caption>
-        <thead>
+      <table className={style.table}>
+        <caption className={style.caption}>Coupons</caption>
+        <thead className={style.thead}>
           <tr>
             <th>Name</th>
             <th>Brand</th>
@@ -42,7 +41,7 @@ export default function Coupon({ coupons, updateCoupons }: CouponProps) {
             <th>Delete</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={style.tbody}>
           {coupons.map((coupon) => (
             <tr key={coupon.id}>
               <td>{coupon.name}</td>
