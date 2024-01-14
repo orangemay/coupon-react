@@ -18,14 +18,14 @@ export default function Modal({ show, close, title, children, onClick }: ModalPr
               <h2 className={style.modalTitle}>
                 {title}
               </h2>
-              <button className="close">
+              <button className={style.close}>
                 <img className={style.icon} src={CloseIcon.src} alt="close" onClick={() => close()}/>
               </button>
             </header>
             <main className="modal-content">
               {children}
             </main>
-            <footer className="modal-footer">
+            <footer className={style.modalFooter}>
               <button className="modal-close" onClick={() => close()}>
                 Cancel
               </button>

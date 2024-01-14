@@ -21,7 +21,7 @@ type CouponResponse = {
 }
 
 export default function Home() {
-
+               
   const [coupons, setCoupons] = useState<Coupon[]>([])
   useEffect(() => {
     getCoupons();
@@ -46,10 +46,17 @@ export default function Home() {
     count: '',
     expireAt: '',
   })
-  const handleInputChange = (name: string, value: string | number) => {
+  function handleInputChange(name: string, value: string) {
+    console.log(Number.isNaN(value));
+    console.log(value)
+
+    let newValue: string | number = value;
+    if (name === 'count' && value) {
+      newValue = parseInt(value, 10);
+    };
     setCoupon({
       ...coupon,
-      [name]: value,
+      [name]: newValue,
     });
   }
 
@@ -76,13 +83,15 @@ export default function Home() {
 
   return (
     <div className={style.main}>
-      <div className='header'>
-        <p>All Coupons</p>
+      <div className={style.header}>
+        <h1 className={style.h1}>All Coupons</h1>
         <button className={style.button} onClick={Toggle}>
           Create
         </button>
+      </div>
+      <div className='modal'>
         <Modal
-          title="modal"
+          title="Create"
           show={modal}
           close={Toggle}
           onClick={createCoupon}
@@ -97,7 +106,7 @@ export default function Home() {
           </label>
           <label>
             Count:
-            <Input type="string" placeholder='0' value={coupon.count} onChange={e => handleInputChange('count', parseInt(e.target.value))} />
+            <Input type="string" placeholder='0' value={coupon.count} onChange={e => handleInputChange('count', e.target.value)} />
           </label>
           <label>
             Expired:

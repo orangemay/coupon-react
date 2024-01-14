@@ -105,3 +105,22 @@ a {
     color-scheme: dark;
   }
 }
+
+button {
+  display: block;
+  width: 7em;
+  height: 35px;
+  padding: 5px;
+  margin: 5px 5px;
+  text-align: center;
+  color: #fff;
+  background-color: #44a0eb;
+  border: 1px solid #949bffa2;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #fff;
+  background: #0474d07f;
+}
