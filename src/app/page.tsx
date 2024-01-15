@@ -96,23 +96,24 @@ export default function Home() {
           close={Toggle}
           onClick={createCoupon}
         >
-          <label>
-            Brand:
-            <Input type="string" placeholder='brand' value={coupon.brand} onChange={e => handleInputChange('brand', e.target.value)} />
-          </label>
-          <label>
-            Name:
-            <Input type="string" placeholder='name' value={coupon.name} onChange={e => handleInputChange('name', e.target.value)} />
-          </label>
-          <label>
-            Count:
-            <Input type="string" placeholder='0' value={coupon.count} onChange={e => handleInputChange('count', e.target.value)} />
-          </label>
-          <label>
-            Expired:
-            <Input type="date" value={coupon.expireAt} onChange={e => handleInputChange('expireAt', e.target.value)}
-            />
-          </label>
+          <div className={style.modalContent}>
+            <p>
+              <label>Brand:</label>
+              <Input type="string" placeholder='brand' value={coupon.brand} onChange={e => handleInputChange('brand', e.target.value)} />
+            </p>
+            <p>
+              <label>Name:</label>
+              <Input type="string" placeholder='name' value={coupon.name} onChange={e => handleInputChange('name', e.target.value)} />
+            </p>
+            <p>
+              <label>Count:</label>
+              <Input type="string" placeholder='0' value={coupon.count} onChange={e => handleInputChange('count', e.target.value)} />
+            </p>
+            <p>
+              <label>Expired:</label>
+              <Input type="date" value={coupon.expireAt} onChange={e => handleInputChange('expireAt', e.target.value)} />
+            </p>
+          </div>
         </Modal>
       </div>
       <div className={style.body}>

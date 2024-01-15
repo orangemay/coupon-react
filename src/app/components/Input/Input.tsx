@@ -1,5 +1,6 @@
+import style from './Input.module.css'
+
 type Props = {
-  className?: string;
   type: string;
   placeholder?: string;
   value: string;
@@ -9,7 +10,7 @@ type Props = {
 export default function Input(props: Props): JSX.Element {
   return (
     <input
-      className={props.className}
+      className={style.input}
       type={props.type}
       placeholder={props.placeholder}
       value={props.value}

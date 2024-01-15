@@ -21,7 +21,6 @@
   background-color: #fff;
   padding: 2rem;
   border-radius: 20px;
-
   background-color: #fff;
 }
 
@@ -48,8 +47,8 @@
   height: 1.5rem;
   margin: 0 0 5px;
   color: #fff;
-  background-color: #44a0eb;
-  border: 1px solid #949bffa2;
+  background-color: #FFB996;
+  border: 1px solid;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -68,48 +67,3 @@
   opacity: 1;
   visibility: visible;
 }
-
-    /* &_content {
-      border-bottom: 1px solid #dddddd;
-      padding: 2rem 0;
-    } */
-
-    /* &_footer {
-      padding: 2rem 0;
-      padding-bottom: 0;
-
-      button {
-        float: right;
-        padding: 0.5rem;
-
-        border-radius: 8px;
-      }
-      .modal-close {
-        background-color: transparent;
-        font-weight: 600;
-
-        &:hover {
-          color: rgba(54, 67, 72, 0.8);
-        }
-      }
-      .submit {
-        margin-right: 1rem;
-        background-color: #364348;
-        color: #fff;
-
-        &:hover {
-          background-color: rgba(54, 67, 72, 0.8);
-        }
-      }
-    } */
-
-
-
-/* .modalContainer.show {
-  visibility: visible;
-  opacity: 1;
-
-  &.modal {
-    transform: translateY(0);
-  }
-} */

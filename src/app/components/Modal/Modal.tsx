@@ -22,7 +22,7 @@ export default function Modal({ show, close, title, children, onClick }: ModalPr
                 <img className={style.icon} src={CloseIcon.src} alt="close" onClick={() => close()}/>
               </button>
             </header>
-            <main className="modal-content">
+            <main className={style.modalContent}>
               {children}
             </main>
             <footer className={style.modalFooter}>
