@@ -12,9 +12,10 @@
   margin-bottom: 2rem;
 }
 
-.thead th {
+.thead tr th {
   padding: 10px;
   border: 1px;
+  font-weight: 600;
 }
 
 .tbody td {
