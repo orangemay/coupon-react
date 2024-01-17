@@ -68,7 +68,6 @@ export default function Home() {
       }
       await axios.post("https://bgmlist.com/coupon-api/coupons", requestData);
       getCoupons();
-      console.log(coupon)
     } catch(e) {
       console.log(e);
     } finally {

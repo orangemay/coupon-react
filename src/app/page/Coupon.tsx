@@ -47,7 +47,7 @@ export default function Coupon({ coupons, updateCoupons }: CouponProps) {
               <td>{coupon.name}</td>
               <td>{coupon.brand || ''}</td>
               <td>{coupon.count}</td>
-              <td>{coupon.expireAt ? (new Date(coupon.expireAt)).toLocaleString() : ''}</td>
+              <td>{coupon.expireAt ? (new Date(coupon.expireAt)).toLocaleDateString() : ''}</td>
               <td>
                 <button
                   className={style.button}
