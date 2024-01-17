@@ -28,7 +28,7 @@ button {
   margin: 5px 5px;
   text-align: center;
   color: #fff;
-  background-color: #FFCF81;
+  background-color: #6c4e3f;
   border: 1px solid;
   border-radius: 8px;
   cursor: pointer;
@@ -36,6 +36,6 @@ button {
 
 button:hover {
   color: #fff;
-  background: #fad79e6e;
+  background: #6c4e3f74;
 }
 
