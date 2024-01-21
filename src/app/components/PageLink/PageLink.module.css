@@ -1,0 +1,40 @@
+.page-link {
+  display: inline-flex;
+  border: 1px solid #fff;
+  background-color: #fff;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 300;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.page-link:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.page-link:not(:first-child) {
+  margin-left: -1px;
+}
+
+.page-link:hover,
+.page-link:focus {
+  color: #0a58ca;
+  background-color: #e9ecef;
+}
+
+.page-link:focus {
+  z-index: 3;
+}
+
+.page-link.active {
+  color: #fff;
+  border-color: #0d6efd;
+  background-color: #0d6efd;
+}
+
+.page-link.disabled {
+  color: #6cd57e;
+  pointer-events: none;
+}

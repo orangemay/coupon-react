@@ -7,6 +7,7 @@ import style from './page.module.css';
 import Coupon from './page/Coupon';
 import Input from './components/Input/Input';
 import Modal from './components/Modal/Modal';
+import Pagination from './components/Pagination/Pagination';
 
 type Coupon = {
   id: string;
@@ -26,6 +27,9 @@ export default function Home() {
   useEffect(() => {
     getCoupons();
   }, [setCoupons])
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const lastPage = 3;
 
   const [modal, setModal] = useState(false)
   const Toggle = () => {
@@ -118,6 +122,11 @@ export default function Home() {
       <div className={style.body}>
         <Coupon coupons={coupons} updateCoupons={getCoupons}/>
       </div>
+      <Pagination
+        currentPage={currentPage}
+        lastPage={lastPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   )
 }
