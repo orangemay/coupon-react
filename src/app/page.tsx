@@ -29,7 +29,11 @@ export default function Home() {
   }, [setCoupons])
 
   const [currentPage, setCurrentPage] = useState(1);
-  const lastPage = 3;
+  const [postsPerPage, setPostsPerPage] = useState(10);
+  const lastPage = 8;
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = coupons.slice(firstPostIndex, lastPostIndex);
 
   const [modal, setModal] = useState(false)
   const Toggle = () => {
@@ -51,9 +55,6 @@ export default function Home() {
     expireAt: '',
   })
   function handleInputChange(name: string, value: string) {
-    console.log(Number.isNaN(value));
-    console.log(value)
-
     let newValue: string | number = value;
     if (name === 'count' && value) {
       newValue = parseInt(value, 10);
@@ -120,11 +121,12 @@ export default function Home() {
         </Modal>
       </div>
       <div className={style.body}>
-        <Coupon coupons={coupons} updateCoupons={getCoupons}/>
+        <Coupon coupons={currentPosts} updateCoupons={getCoupons}/>
       </div>
       <Pagination
         currentPage={currentPage}
         lastPage={lastPage}
+        maxLength={7}
         setCurrentPage={setCurrentPage}
       />
     </div>
