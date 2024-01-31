@@ -3,19 +3,25 @@ import PageLink from "../PageLink/PageLink";
 import style from './Pagination.module.css'
 
 export type Props = {
+  totalPosts: number;
+  postPerPage: number;
   currentPage: number;
   lastPage: number;
-  maxLength: number;
   setCurrentPage: (page: number) => void;
 }
 
-export default function Pagination({ 
+export default function Pagination({
+  totalPosts,
+  postPerPage,
   currentPage,
   lastPage,
-  maxLength,
   setCurrentPage
 }: Props) {
-  const pageNums = [1, 2, 3, 4, 5, 6, 7, 8]
+  const pageNums = []
+
+  for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
+    pageNums.push(i)
+  }
 
   return (
     <nav className={style.pagination} aria-label="Pagination">

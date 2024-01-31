@@ -18,22 +18,16 @@ type Coupon = {
 }
 
 type CouponResponse = {
-  data: Coupon[]
+  data: Coupon[];
 }
 
 export default function Home() {
                
   const [coupons, setCoupons] = useState<Coupon[]>([])
+
   useEffect(() => {
     getCoupons();
-  }, [setCoupons])
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
-  const lastPage = 8;
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = coupons.slice(firstPostIndex, lastPostIndex);
+  }, [])
 
   const [modal, setModal] = useState(false)
   const Toggle = () => {
@@ -54,6 +48,7 @@ export default function Home() {
     count: '',
     expireAt: '',
   })
+
   function handleInputChange(name: string, value: string) {
     let newValue: string | number = value;
     if (name === 'count' && value) {
@@ -83,7 +78,18 @@ export default function Home() {
   async function getCoupons() {
     const { data } = await axios.get<CouponResponse>("https://bgmlist.com/coupon-api/coupons");
     setCoupons(data.data)
-  };
+
+  }
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
+  console.log(coupons.length)
+  const totalPosts = coupons.length
+  const lastPage = Math.ceil(totalPosts / postsPerPage);
+  console.log(lastPage)
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = coupons.slice(firstPostIndex, lastPostIndex);
 
   return (
     <div className={style.main}>
@@ -124,9 +130,10 @@ export default function Home() {
         <Coupon coupons={currentPosts} updateCoupons={getCoupons}/>
       </div>
       <Pagination
+        totalPosts={totalPosts}
+        postPerPage={postsPerPage}
         currentPage={currentPage}
         lastPage={lastPage}
-        maxLength={7}
         setCurrentPage={setCurrentPage}
       />
     </div>
