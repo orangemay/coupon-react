@@ -82,11 +82,8 @@ export default function Home() {
   }
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
-  console.log(coupons.length)
   const totalPosts = coupons.length
   const lastPage = Math.ceil(totalPosts / postsPerPage);
-  console.log(lastPage)
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = coupons.slice(firstPostIndex, lastPostIndex);
@@ -127,7 +124,7 @@ export default function Home() {
         </Modal>
       </div>
       <div className={style.body}>
-        <Coupon coupons={currentPosts} updateCoupons={getCoupons}/>
+        <Coupon coupons={currentPosts} updateCoupons={getCoupons} />
       </div>
       <Pagination
         totalPosts={totalPosts}
@@ -139,3 +136,5 @@ export default function Home() {
     </div>
   )
 }
+
+const postsPerPage = 10;
