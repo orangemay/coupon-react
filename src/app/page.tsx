@@ -24,11 +24,6 @@ type CouponResponse = {
 export default function Home() {
                
   const [coupons, setCoupons] = useState<Coupon[]>([])
-
-  useEffect(() => {
-    getCoupons();
-  }, [])
-
   const [modal, setModal] = useState(false)
   const Toggle = () => {
     if (!modal) {
@@ -38,6 +33,7 @@ export default function Home() {
         count: '',
         expireAt: '',
       });
+      setFormErrors({});
     }
     setModal(prev => !prev);
   }
@@ -48,6 +44,35 @@ export default function Home() {
     count: '',
     expireAt: '',
   })
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({})
+
+  const validate = (values: any) => {
+    const errors: Record<string, string> = {};
+    if (!coupon.name) {
+      errors.name = "Name is required!";
+    }
+    if (!coupon.brand) {
+      errors.brand = "Brand is required!";
+    }
+    if (!coupon.count) {
+      errors.count = "Count is required!"
+    }
+    if (!coupon.expireAt) {
+      errors.expireAt = "Expired is required!"
+    }
+    console.log(errors, "errors")
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    getCoupons();
+  }, [])
 
   function handleInputChange(name: string, value: string) {
     let newValue: string | number = value;
@@ -63,22 +88,23 @@ export default function Home() {
   async function createCoupon() {
     try {
       const requestData = {...coupon};
-      if (requestData.expireAt) {
-        requestData.expireAt = (new Date(requestData.expireAt)).toISOString();
+      const valid = validate(requestData);
+      if (valid) {
+        if (requestData.expireAt) {
+          requestData.expireAt = (new Date(requestData.expireAt)).toISOString();
+        }
+        await axios.post("https://bgmlist.com/coupon-api/coupons", requestData);
+        Toggle();
+        getCoupons();
       }
-      await axios.post("https://bgmlist.com/coupon-api/coupons", requestData);
-      getCoupons();
     } catch(e) {
       console.log(e);
-    } finally {
-      Toggle();
     }
   }
 
   async function getCoupons() {
     const { data } = await axios.get<CouponResponse>("https://bgmlist.com/coupon-api/coupons");
     setCoupons(data.data)
-
   }
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,25 +127,29 @@ export default function Home() {
           title="Create"
           show={modal}
           close={Toggle}
-          onClick={createCoupon}
+          onSubmit={createCoupon}
         >
           <div className={style.modalContent}>
-            <p>
+            <div>
               <label>Brand:</label>
               <Input type="string" placeholder='brand' value={coupon.brand} onChange={e => handleInputChange('brand', e.target.value)} />
-            </p>
-            <p>
+              <p>{formErrors.brand}</p>
+            </div>
+            <div>
               <label>Name:</label>
               <Input type="string" placeholder='name' value={coupon.name} onChange={e => handleInputChange('name', e.target.value)} />
-            </p>
-            <p>
+              <p>{formErrors.name}</p>
+            </div>
+            <div>
               <label>Count:</label>
               <Input type="string" placeholder='0' value={coupon.count} onChange={e => handleInputChange('count', e.target.value)} />
-            </p>
-            <p>
+              <p>{formErrors.count}</p>
+            </div>
+            <div>
               <label>Expired:</label>
               <Input type="date" value={coupon.expireAt} onChange={e => handleInputChange('expireAt', e.target.value)} />
-            </p>
+              <p>{formErrors.expireAt}</p>
+            </div>
           </div>
         </Modal>
       </div>
