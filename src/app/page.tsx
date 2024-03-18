@@ -50,19 +50,17 @@ export default function Home() {
     const errors: Record<string, string> = {};
     if (!coupon.name) {
       errors.name = "Name is required!";
-    }
+    };
     if (!coupon.brand) {
       errors.brand = "Brand is required!";
-    }
+    };
     if (!coupon.count) {
       errors.count = "Count is required!"
-    }
+    };
     if (!coupon.expireAt) {
       errors.expireAt = "Expired is required!"
-    }
-    console.log(errors, "errors")
+    };
     setFormErrors(errors);
-
     if (Object.keys(errors).length === 0) {
       return true;
     } else {
@@ -132,23 +130,38 @@ export default function Home() {
           <div className={style.modalContent}>
             <div>
               <label>Brand:</label>
-              <Input type="string" placeholder='brand' value={coupon.brand} onChange={e => handleInputChange('brand', e.target.value)} />
-              <p>{formErrors.brand}</p>
+              <Input
+                type="string"
+                placeholder='brand'
+                value={coupon.brand}
+                errorMessage={formErrors.brand}
+                onChange={e => handleInputChange('brand', e.target.value)} />
             </div>
             <div>
               <label>Name:</label>
-              <Input type="string" placeholder='name' value={coupon.name} onChange={e => handleInputChange('name', e.target.value)} />
-              <p>{formErrors.name}</p>
+              <Input
+               type="string"
+                placeholder='name'
+                value={coupon.name}
+                errorMessage={formErrors.name}
+                onChange={e => handleInputChange('name', e.target.value)} />
             </div>
             <div>
               <label>Count:</label>
-              <Input type="string" placeholder='0' value={coupon.count} onChange={e => handleInputChange('count', e.target.value)} />
-              <p>{formErrors.count}</p>
+              <Input
+               type="string"
+               placeholder="0"
+               value={coupon.count}
+               errorMessage={formErrors.count}
+               onChange={e => handleInputChange('count', e.target.value)} />
             </div>
             <div>
               <label>Expired:</label>
-              <Input type="date" value={coupon.expireAt} onChange={e => handleInputChange('expireAt', e.target.value)} />
-              <p>{formErrors.expireAt}</p>
+              <Input
+               type="date"
+               value={coupon.expireAt}
+               errorMessage={formErrors.expireAt}
+               onChange={e => handleInputChange('expireAt', e.target.value)} />
             </div>
           </div>
         </Modal>
