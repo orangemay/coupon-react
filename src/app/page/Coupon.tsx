@@ -21,7 +21,7 @@ export default function Coupon({ coupons, updateCoupons }: CouponProps) {
 
   const handleDelete = async (couponId: string) => {
     try {
-      await axios.delete(`https://bgmlist.com/coupon-api/coupons/${couponId}`)
+      await axios.delete(`https://wxt2005.dev/api/coupon/coupons/${couponId}`)
       updateCoupons();
     } catch (error) {
       console.log(error);

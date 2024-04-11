@@ -91,7 +91,7 @@ export default function Home() {
         if (requestData.expireAt) {
           requestData.expireAt = (new Date(requestData.expireAt)).toISOString();
         }
-        await axios.post("https://bgmlist.com/coupon-api/coupons", requestData);
+        await axios.post("https://wxt2005.dev/api/coupon/coupons", requestData);
         Toggle();
         getCoupons();
       }
@@ -101,7 +101,7 @@ export default function Home() {
   }
 
   async function getCoupons() {
-    const { data } = await axios.get<CouponResponse>("https://bgmlist.com/coupon-api/coupons");
+    const { data } = await axios.get<CouponResponse>("https://wxt2005.dev/api/coupon/coupons");
     setCoupons(data.data)
   }
 
