@@ -14,7 +14,8 @@ type Coupon = {
   name: string;
   brand?: string;
   count: string;
-  expireAt?: string
+  validityPeriodStart?: string;
+  validityPeriodEnd?: string;
 }
 
 type CouponResponse = {
@@ -31,7 +32,8 @@ export default function Home() {
         brand: '',
         name: '',
         count: '',
-        expireAt: '',
+        validityPeriodStart: '',
+        validityPeriodEnd: ''
       });
       setFormErrors({});
     }
@@ -42,7 +44,8 @@ export default function Home() {
     brand: '',
     name: '',
     count: '',
-    expireAt: '',
+    validityPeriodStart: '',
+    validityPeriodEnd: '',
   })
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
 
@@ -55,11 +58,14 @@ export default function Home() {
       errors.brand = "Brand is required!";
     };
     if (!coupon.count) {
-      errors.count = "Count is required!"
+      errors.count = "Count is required!";
     };
-    if (!coupon.expireAt) {
-      errors.expireAt = "Expired is required!"
+    if (!coupon.validityPeriodEnd || !coupon.validityPeriodStart) {
+      errors.expireAt = "Expired is required!";
     };
+    if (new Date(coupon.validityPeriodEnd) < new Date(coupon.validityPeriodStart)) {
+      errors.expireAt = "Please enter the End Day after the Start Day!";
+    }
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
       return true;
@@ -88,8 +94,11 @@ export default function Home() {
       const requestData = {...coupon};
       const valid = validate(requestData);
       if (valid) {
-        if (requestData.expireAt) {
-          requestData.expireAt = (new Date(requestData.expireAt)).toISOString();
+        if (requestData.validityPeriodEnd) {
+          requestData.validityPeriodEnd = (new Date(requestData.validityPeriodEnd)).toISOString();
+        }
+        if (requestData.validityPeriodStart) {
+          requestData.validityPeriodStart = (new Date(requestData.validityPeriodStart)).toISOString();
         }
         await axios.post("https://wxt2005.dev/api/coupon/coupons", requestData);
         Toggle();
@@ -159,9 +168,14 @@ export default function Home() {
               <label>Expired:</label>
               <Input
                type="date"
-               value={coupon.expireAt}
+               value={coupon.validityPeriodStart}
                errorMessage={formErrors.expireAt}
-               onChange={e => handleInputChange('expireAt', e.target.value)} />
+               onChange={e => handleInputChange('validityPeriodStart', e.target.value)} />
+              <Input
+               type="date"
+               value={coupon.validityPeriodEnd}
+               errorMessage={formErrors.expireAt}
+               onChange={e => handleInputChange('validityPeriodEnd', e.target.value)} />
             </div>
           </div>
         </Modal>
